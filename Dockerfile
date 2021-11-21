@@ -1,0 +1,4 @@
+FROM library/postgres
+ENV POSTGRES_USER dataviewer
+ENV POSTGRES_PASSWORD dataviewer
+ENV POSTGRES_DB dataviewer
