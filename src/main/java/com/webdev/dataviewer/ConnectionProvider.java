@@ -16,10 +16,6 @@ public interface ConnectionProvider<D extends ConnectionDetails, C extends Conne
 
     Class<D> connectionDetailsClass();
 
-    default List<String> connectionDetailsParameters() {
-        return FieldUtils.getAllFieldsList(connectionDetailsClass()).stream().map(Field::getName).collect(Collectors.toList());
-    }
-
     default C getConnection(Map<String, Object> parameters) {
         return getConnection(new ObjectMapper().convertValue(parameters, connectionDetailsClass()));
     }

@@ -1,8 +1,8 @@
-DROP TABLE users;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-    id bigint NOT NULL,
+    id serial,
     name character varying(255),
     surname character varying(255),
     age int,

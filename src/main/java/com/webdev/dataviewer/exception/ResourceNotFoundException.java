@@ -2,7 +2,7 @@ package com.webdev.dataviewer.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 
-    public ResourceNotFoundException(String resourceName, Long id) {
+    public ResourceNotFoundException(String resourceName, Integer id) {
         this(String.format("'%s' with id: '%d' is not found", resourceName, id));
     }
 
