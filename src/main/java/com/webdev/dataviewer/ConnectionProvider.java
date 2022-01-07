@@ -16,10 +16,6 @@ public interface ConnectionProvider<D extends ConnectionDetails, C extends Conne
 
     Class<D> connectionDetailsClass();
 
-    default C getConnection(Map<String, Object> parameters) {
-        return getConnection(new ObjectMapper().convertValue(parameters, connectionDetailsClass()));
-    }
-
     C getConnection(D details);
 
 }

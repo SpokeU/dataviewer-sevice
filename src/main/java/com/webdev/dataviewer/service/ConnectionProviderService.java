@@ -4,6 +4,8 @@ import com.webdev.dataviewer.Connection;
 import com.webdev.dataviewer.ConnectionProvider;
 import com.webdev.dataviewer.model.api.ConnectionParameter;
 import com.webdev.dataviewer.model.connection.ConnectionDetails;
+import com.webdev.dataviewer.util.ConnectionModelMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.stereotype.Service;
@@ -19,13 +21,12 @@ import java.util.stream.Collectors;
  * The purpose is to work on domain models above
  */
 @Service
+@RequiredArgsConstructor
 public class ConnectionProviderService {
 
-    private List<ConnectionProvider> connectionProviders;
+    private final List<ConnectionProvider> connectionProviders;
 
-    public ConnectionProviderService(List<ConnectionProvider> connectionProviders) {
-        this.connectionProviders = connectionProviders;
-    }
+    private final ConnectionModelMapper connectionModelMapper;
 
     public List<ConnectionProvider> getAll() {
         return connectionProviders;
@@ -44,7 +45,7 @@ public class ConnectionProviderService {
                 .collect(Collectors.toList());
     }
 
-    public Class<? extends ConnectionDetails> getConnectionDetailsClass(String type){
+    public Class<? extends ConnectionDetails> getConnectionDetailsClass(String type) {
         return getByType(type).connectionDetailsClass();
     }
 
@@ -54,10 +55,12 @@ public class ConnectionProviderService {
     }
 
     public Connection getConnection(String type, Map<String, Object> details) {
-        return getByType(type).getConnection(details);
+        ConnectionProvider connectionProvider = getByType(type);
+        ConnectionDetails connectionDetails = connectionModelMapper.toConnectionDetails(connectionProvider.type(), details);
+        return getByType(type).getConnection(connectionDetails);
     }
 
-    private String getFieldType(Field field){
+    private String getFieldType(Field field) {
         return StringUtils.substringAfterLast(field.getType().getTypeName(), ".").toLowerCase();
     }
 }

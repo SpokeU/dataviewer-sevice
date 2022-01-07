@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("connections")
-public class ConnectionController {
+public class ConnectionController implements CrudController<ConnectionApiModel> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -30,28 +30,23 @@ public class ConnectionController {
     @Autowired
     private ConnectionService connectionService;
 
-    @PostMapping
-    public ConnectionApiModel create(@RequestBody ConnectionApiModel connection) {
+    public ConnectionApiModel create(ConnectionApiModel connection) {
         return connectionService.save(connection);
     }
 
-    @GetMapping("/{id}")
-    public ConnectionApiModel getById(@PathVariable Integer id) {
+    public ConnectionApiModel getById(Integer id) {
         return connectionService.get(id);
     }
 
-    @GetMapping
     public List<ConnectionApiModel> getAll() {
         return connectionService.getAll();
     }
 
-    @PutMapping("/{id}")
-    public ConnectionApiModel update(@PathVariable Integer id, @RequestBody ConnectionApiModel connection) {
+    public ConnectionApiModel update(Integer id, ConnectionApiModel connection) {
         return connectionService.update(id, connection);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(Integer id) {
         connectionService.delete(id);
     }
 
