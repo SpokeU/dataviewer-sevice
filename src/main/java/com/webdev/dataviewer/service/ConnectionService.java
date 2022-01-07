@@ -1,5 +1,6 @@
 package com.webdev.dataviewer.service;
 
+import com.webdev.dataviewer.Connection;
 import com.webdev.dataviewer.exception.ResourceNotFoundException;
 import com.webdev.dataviewer.model.api.ConnectionApiModel;
 import com.webdev.dataviewer.model.entity.ConnectionEntity;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +19,14 @@ public class ConnectionService {
     private final ConnectionRepository connectionRepository;
 
     private final ConnectionModelMapper connectionModelMapper;
+
+    private final ConnectionProviderService connectionProviderService;
+
+    public Connection getConnection(Integer id){
+        return connectionRepository.findById(id).map(connectionEntity -> {
+            return connectionProviderService.getConnection(connectionEntity.getType(), connectionEntity.getConnectionDetails());
+        }).orElseThrow(() -> new ResourceNotFoundException("connection", id));
+    }
 
 
     public ConnectionApiModel get(Integer id) {

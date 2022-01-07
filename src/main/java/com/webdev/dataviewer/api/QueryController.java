@@ -2,8 +2,10 @@ package com.webdev.dataviewer.api;
 
 import com.webdev.dataviewer.QueryResult;
 import com.webdev.dataviewer.exception.ResourceNotFoundException;
+import com.webdev.dataviewer.model.api.RunQueryRequest;
 import com.webdev.dataviewer.model.entity.QueryEntity;
 import com.webdev.dataviewer.repository.QueryRepository;
+import com.webdev.dataviewer.service.QueryService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("queries")
@@ -24,10 +25,12 @@ public class QueryController implements CrudController<QueryEntity> {
 
     private final QueryRepository queryRepository;
 
+    private final QueryService queryService;
+
     @PostMapping("run")
     public QueryResult<?> run(@RequestBody RunQueryRequest request) {
         logger.info(request.toString());
-        return new QueryResult<>("asd");
+        return queryService.runQuery(request.connectionId(), request.queryString(), request.queryParams());
     }
 
     @Override
@@ -58,13 +61,6 @@ public class QueryController implements CrudController<QueryEntity> {
     @Override
     public void delete(Integer id) {
         queryRepository.deleteById(id);
-    }
-
-    private final record RunQueryRequest(Integer connectionId,
-                                         Integer queryId,
-                                         String queryString,
-                                         Map<String, String> queryParams) {
-
     }
 
 }

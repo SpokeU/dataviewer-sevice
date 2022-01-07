@@ -23,7 +23,7 @@ CREATE TABLE query
   id serial,
   name character varying(255) UNIQUE,
   query_string character varying,
-  connection_id int NOT NULL,
+  connection_id int,
   CONSTRAINT query_pkey PRIMARY KEY (id),
   FOREIGN KEY (connection_id) REFERENCES connection(id)
 );

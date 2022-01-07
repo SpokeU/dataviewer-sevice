@@ -54,7 +54,7 @@ public class ConnectionProviderService {
                 .orElseThrow(() -> new IllegalArgumentException("No provider for type: " + type + " found"));
     }
 
-    public Connection getConnection(String type, Map<String, Object> details) {
+    public Connection getConnection(String type, Map<String, ? extends Object> details) {
         ConnectionProvider connectionProvider = getByType(type);
         ConnectionDetails connectionDetails = connectionModelMapper.toConnectionDetails(connectionProvider.type(), details);
         return getByType(type).getConnection(connectionDetails);
