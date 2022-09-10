@@ -18,7 +18,7 @@ public class JDBCTemplateConnection extends Connection<NamedParameterJdbcTemplat
     }
 
     @Override
-    public boolean testConnection() {
-        return false;
+    public void testConnection() {
+        search("SELECT 1", null);
     }
 }

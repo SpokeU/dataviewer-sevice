@@ -26,7 +26,7 @@ public class ConnectionModelMapper {
     }
 
     public ConnectionApiModel toApiModel(ConnectionEntity entity) {
-        Map<String, String> entityConnectionDetails = entity.getConnectionDetails();
+        Map<String, Object> entityConnectionDetails = entity.getDetails();
 
         ConnectionDetails connectionDetails = toConnectionDetails(entity.getType(), entityConnectionDetails);
         Map<String, Object> connectionDetailsMap = mapper.convertValue(connectionDetails, Map.class);
@@ -36,7 +36,7 @@ public class ConnectionModelMapper {
 
     public ConnectionEntity toEntity(ConnectionApiModel apiModel) {
         //Act as validation when trying to convert to Details model if there are Unrecognized field it will throw error
-        toConnectionDetails(apiModel.type(), apiModel.connectionDetails());
+        toConnectionDetails(apiModel.type(), apiModel.details());
         ConnectionEntity connectionEntity = mapper.convertValue(apiModel, ConnectionEntity.class);
         return connectionEntity;
     }

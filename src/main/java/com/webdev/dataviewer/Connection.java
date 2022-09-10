@@ -16,6 +16,6 @@ public abstract class Connection<T> {
 
     public abstract QueryResult<?> search(String query, Map<String, String> parameters);
 
-    public abstract boolean testConnection();
+    public abstract void testConnection();
 
 }

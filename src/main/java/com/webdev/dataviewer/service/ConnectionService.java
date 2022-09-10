@@ -23,14 +23,16 @@ public class ConnectionService {
     private final ConnectionProviderService connectionProviderService;
 
     public Connection getConnection(Integer id){
-        return connectionRepository.findById(id).map(connectionEntity -> {
-            return connectionProviderService.getConnection(connectionEntity.getType(), connectionEntity.getConnectionDetails());
-        }).orElseThrow(() -> new ResourceNotFoundException("connection", id));
+        return connectionRepository.findById(id)
+                .map(connectionEntity -> connectionProviderService.getConnection(connectionEntity.getType(), connectionEntity.getDetails())
+        ).orElseThrow(() -> new ResourceNotFoundException("connection", id));
     }
 
 
     public ConnectionApiModel get(Integer id) {
-        return connectionModelMapper.toApiModel(connectionRepository.findById(id).get());
+        return connectionRepository.findById(id)
+                .map(connectionModelMapper::toApiModel)
+                .orElseThrow(() -> new ResourceNotFoundException("connection", id));
     }
 
     public List<ConnectionApiModel> getAll() {

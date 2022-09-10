@@ -7,15 +7,8 @@ CREATE TABLE connection
     id serial,
     name character varying(255) UNIQUE,
     type character varying(255),
+    details jsonb,
     CONSTRAINT connection_pkey PRIMARY KEY (id)
-);
-
-CREATE TABLE connection_parameters
-(
-	connection_id int,
-    name character varying(255),
-    value character varying(255),
-	FOREIGN KEY (connection_id) REFERENCES connection(id)
 );
 
 CREATE TABLE query

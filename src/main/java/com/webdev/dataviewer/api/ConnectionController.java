@@ -62,15 +62,18 @@ public class ConnectionController implements CrudController<ConnectionApiModel> 
 
     @PostMapping("test/{id}")
     public void testSavedConnection(@PathVariable Integer id) {
-        ConnectionApiModel apiModel = connectionService.get(id);
-        Connection pgConnection = connectionProviderService.getConnection(apiModel.type(), apiModel.connectionDetails());
-        QueryResult queryResult = pgConnection.search("select * from connection", new HashedMap());
-        logger.info("Result: {}", queryResult);
+        try {
+            connectionService.getConnection(id).testConnection();
+        } catch (Exception e){
+            logger.error("Error testing connection", e);
+            throw e;
+        }
+
     }
 
     @PostMapping("test")
     public void test(@RequestBody ConnectionEntity connection) {
-        ConnectionProvider pgConnectionProvider = connectionProviderService.getByType(PostgresJDBCTemplateConnectionProvider.TYPE);
+        ConnectionProvider pgConnectionProvider = connectionProviderService.getByType(connection.getType());
         Connection pgConnection = pgConnectionProvider.getConnection(new DBConnectionDetails("localhost", 5432, "dataviewer", "dataviewer", "dataviewer"));
         QueryResult queryResult = pgConnection.search("select * from connection", new HashedMap());
         logger.info("Result: {}", queryResult);

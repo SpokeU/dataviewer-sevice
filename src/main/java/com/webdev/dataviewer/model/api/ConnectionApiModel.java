@@ -8,9 +8,9 @@ public record ConnectionApiModel(
         Integer id,
         String name,
         String type,
-        Map<String, Object> connectionDetails
+        Map<String, Object> details
 ) {
     public ConnectionApiModel withId(Integer id) {
-        return new ConnectionApiModel(id, name(), type(), connectionDetails());
+        return new ConnectionApiModel(id, name(), type(), details());
     }
 }
