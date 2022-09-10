@@ -4,6 +4,7 @@ import com.webdev.dataviewer.*;
 import com.webdev.dataviewer.exception.ResourceNotFoundException;
 import com.webdev.dataviewer.model.api.ConnectionApiModel;
 import com.webdev.dataviewer.model.api.ConnectionParameter;
+import com.webdev.dataviewer.model.api.ConnectionTestResult;
 import com.webdev.dataviewer.providers.PostgresJDBCTemplateConnectionProvider;
 import com.webdev.dataviewer.model.entity.ConnectionEntity;
 import com.webdev.dataviewer.model.connection.DBConnectionDetails;
@@ -61,22 +62,27 @@ public class ConnectionController implements CrudController<ConnectionApiModel> 
     }
 
     @PostMapping("test/{id}")
-    public void testSavedConnection(@PathVariable Integer id) {
+    public ConnectionTestResult testSavedConnection(@PathVariable Integer id) {
         try {
             connectionService.getConnection(id).testConnection();
+            return new ConnectionTestResult(true, "Connection successful");
         } catch (Exception e){
-            logger.error("Error testing connection", e);
-            throw e;
+            return new ConnectionTestResult(false, e.getMessage());
         }
 
     }
 
     @PostMapping("test")
-    public void test(@RequestBody ConnectionEntity connection) {
-        ConnectionProvider pgConnectionProvider = connectionProviderService.getByType(connection.getType());
-        Connection pgConnection = pgConnectionProvider.getConnection(new DBConnectionDetails("localhost", 5432, "dataviewer", "dataviewer", "dataviewer"));
-        QueryResult queryResult = pgConnection.search("select * from connection", new HashedMap());
-        logger.info("Result: {}", queryResult);
+    public ConnectionTestResult test(@RequestBody ConnectionEntity connection) {
+        try {
+            connectionProviderService
+                    .getConnection(connection.getType(), connection.getDetails())
+                    .testConnection();
+            return new ConnectionTestResult(true, "Connection successful");
+        } catch (Exception e){
+            return new ConnectionTestResult(false, e.getMessage());
+        }
+
     }
 
 }

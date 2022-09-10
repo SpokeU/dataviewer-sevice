@@ -1,8 +1,7 @@
-DROP TABLE IF EXISTS query;
-DROP TABLE IF EXISTS connection_parameters;
-DROP TABLE IF EXISTS connection;
+DROP TABLE IF EXISTS queries;
+DROP TABLE IF EXISTS connections;
 
-CREATE TABLE connection
+CREATE TABLE connections
 (
     id serial,
     name character varying(255) UNIQUE,
@@ -11,12 +10,12 @@ CREATE TABLE connection
     CONSTRAINT connection_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE query
+CREATE TABLE queries
 (
   id serial,
   name character varying(255) UNIQUE,
   query_string character varying,
   connection_id int,
   CONSTRAINT query_pkey PRIMARY KEY (id),
-  FOREIGN KEY (connection_id) REFERENCES connection(id)
+  FOREIGN KEY (connection_id) REFERENCES connections(id)
 );

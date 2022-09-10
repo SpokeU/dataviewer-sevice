@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "query")
+@Entity(name = "queries")
 @Data
 public class QueryEntity {
 

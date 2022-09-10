@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Entity(name = "connection")
+@Entity(name = "connections")
 @Data
 @TypeDef(name = "jsonb", typeClass = JsonType.class)
 public class ConnectionEntity {
