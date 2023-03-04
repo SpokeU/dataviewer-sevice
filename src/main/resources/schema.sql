@@ -17,5 +17,5 @@ CREATE TABLE queries
   query_string character varying,
   connection_id int,
   CONSTRAINT query_pkey PRIMARY KEY (id),
-  FOREIGN KEY (connection_id) REFERENCES connections(id)
+  FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE SET NULL
 );

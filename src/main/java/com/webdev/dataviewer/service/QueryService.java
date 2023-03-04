@@ -26,7 +26,7 @@ public class QueryService {
 
     }
 
-    public QueryResult<?> runQuery(int connectionId, String queryString, Map<String, String> queryParams) {
+    public QueryResult<?> runQuery(int connectionId, String queryString, Map<String, Object> queryParams) {
         Connection connection = connectionService.getConnection(connectionId);
         return connection.search(queryString, queryParams);
 

@@ -14,7 +14,7 @@ public abstract class Connection<T> {
         this.connection = connection;
     }
 
-    public abstract QueryResult<?> search(String query, Map<String, String> parameters);
+    public abstract QueryResult<?> search(String query, Map<String, Object> parameters);
 
     public abstract void testConnection();
 

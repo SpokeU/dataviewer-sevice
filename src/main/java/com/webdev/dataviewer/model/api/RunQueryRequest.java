@@ -5,6 +5,6 @@ import java.util.Map;
 public record RunQueryRequest(Integer connectionId,
                               Integer queryId,
                               String queryString,
-                              Map<String, String> queryParams) {
+                              Map<String, Object> queryParams) {
 
 }

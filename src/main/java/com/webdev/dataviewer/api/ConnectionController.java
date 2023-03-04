@@ -80,6 +80,7 @@ public class ConnectionController implements CrudController<ConnectionApiModel> 
                     .testConnection();
             return new ConnectionTestResult(true, "Connection successful");
         } catch (Exception e){
+            logger.error("Error while testing: ", e);
             return new ConnectionTestResult(false, e.getMessage());
         }
 
