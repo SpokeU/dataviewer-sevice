@@ -2,15 +2,14 @@ package com.webdev.dataviewer.service;
 
 import com.webdev.dataviewer.Connection;
 import com.webdev.dataviewer.exception.ResourceNotFoundException;
-import com.webdev.dataviewer.model.api.ConnectionApiModel;
-import com.webdev.dataviewer.model.entity.ConnectionEntity;
+import com.webdev.dataviewer.api.model.ConnectionApiModel;
+import com.webdev.dataviewer.entity.ConnectionEntity;
 import com.webdev.dataviewer.repository.ConnectionRepository;
 import com.webdev.dataviewer.util.ConnectionModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,9 +45,9 @@ public class ConnectionService {
     }
 
     public ConnectionApiModel update(Integer id, ConnectionApiModel connection) {
-        return connectionRepository.findById(id).map(entity -> {
-            return save(connection.withId(id));
-        }).orElseThrow(() -> new ResourceNotFoundException("connection", id));
+        return connectionRepository.findById(id)
+                .map(entity -> save(connection.withId(id)))
+                .orElseThrow(() -> new ResourceNotFoundException("connection", id));
     }
 
     public void delete(Integer id) {

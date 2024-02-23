@@ -2,8 +2,8 @@ package com.webdev.dataviewer.service;
 
 import com.webdev.dataviewer.Connection;
 import com.webdev.dataviewer.ConnectionProvider;
-import com.webdev.dataviewer.model.api.ConnectionParameter;
-import com.webdev.dataviewer.model.connection.ConnectionDetails;
+import com.webdev.dataviewer.api.model.ConnectionParameter;
+import com.webdev.dataviewer.model.ConnectionDetails;
 import com.webdev.dataviewer.util.ConnectionModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * This cl;ass knows nothing about DB and saved connections.
+ * This class knows nothing about DB and saved connections.
  * Its Domain ConnectionDetails, Type, and Map<String, Object>
  * The purpose is to work on domain models above
  */
@@ -28,15 +28,11 @@ public class ConnectionProviderService {
 
     private final ConnectionModelMapper connectionModelMapper;
 
-    public List<ConnectionProvider> getAll() {
-        return connectionProviders;
-    }
-
     /**
      * Returns all provider names registered in system
      */
     public List<String> getAllProviderNames() {
-        return getAll().stream().map(ConnectionProvider::type).collect(Collectors.toList());
+        return connectionProviders.stream().map(ConnectionProvider::type).collect(Collectors.toList());
     }
 
     public List<ConnectionParameter> getConnectionParameters(String type) {

@@ -1,9 +1,9 @@
-package com.webdev.dataviewer.api;
+package com.webdev.dataviewer.api.controller;
 
 import com.webdev.dataviewer.QueryResult;
 import com.webdev.dataviewer.exception.ResourceNotFoundException;
-import com.webdev.dataviewer.model.api.RunQueryRequest;
-import com.webdev.dataviewer.model.entity.QueryEntity;
+import com.webdev.dataviewer.api.model.request.RunQueryRequest;
+import com.webdev.dataviewer.entity.QueryEntity;
 import com.webdev.dataviewer.repository.QueryRepository;
 import com.webdev.dataviewer.service.QueryService;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("queries")
 @RequiredArgsConstructor
-public class QueryController implements CrudController<QueryEntity> {
+public class QueriesController implements CrudController<QueryEntity> {
 
-    Logger logger = LoggerFactory.getLogger(QueryController.class);
+    Logger logger = LoggerFactory.getLogger(QueriesController.class);
 
     private final QueryRepository queryRepository;
 
     private final QueryService queryService;
-
-    @PostMapping("run")
-    public QueryResult<?> run(@RequestBody RunQueryRequest request) {
-        logger.info(request.toString());
-        return queryService.runQuery(request.connectionId(), request.queryString(), request.queryParams());
-    }
 
     @Override
     public QueryEntity create(QueryEntity query) {
@@ -39,12 +33,12 @@ public class QueryController implements CrudController<QueryEntity> {
     }
 
     @Override
-    public QueryEntity getById(Integer id) {
+    public QueryEntity findById(Integer id) {
         return queryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("query", id));
     }
 
     @Override
-    public List<QueryEntity> getAll() {
+    public List<QueryEntity> findAll() {
         return queryRepository.findAll();
     }
 
@@ -61,6 +55,12 @@ public class QueryController implements CrudController<QueryEntity> {
     @Override
     public void delete(Integer id) {
         queryRepository.deleteById(id);
+    }
+
+    @PostMapping("run")
+    public QueryResult<?> run(@RequestBody RunQueryRequest request) {
+        logger.info(request.toString());
+        return queryService.runQuery(request.connectionId(), request.queryString(), request.queryParams());
     }
 
 }

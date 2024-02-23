@@ -1,4 +1,4 @@
-package com.webdev.dataviewer.model.connection;
+package com.webdev.dataviewer.model;
 
 import com.webdev.dataviewer.util.PropertyClass;
 

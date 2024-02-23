@@ -1,6 +1,4 @@
-package com.webdev.dataviewer.model.api;
-
-import com.webdev.dataviewer.model.connection.ConnectionDetails;
+package com.webdev.dataviewer.api.model;
 
 import java.util.Map;
 

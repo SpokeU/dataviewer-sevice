@@ -1,13 +1,11 @@
-package com.webdev.dataviewer.model.entity;
+package com.webdev.dataviewer.entity;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import com.webdev.dataviewer.model.connection.DBConnectionDetails;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.Map;
 
 

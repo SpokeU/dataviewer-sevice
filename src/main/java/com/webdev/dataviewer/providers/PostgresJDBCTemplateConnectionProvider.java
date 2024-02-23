@@ -2,7 +2,7 @@ package com.webdev.dataviewer.providers;
 
 import com.webdev.dataviewer.ConnectionProvider;
 import com.webdev.dataviewer.JDBCTemplateConnection;
-import com.webdev.dataviewer.model.connection.DBConnectionDetails;
+import com.webdev.dataviewer.model.DBConnectionDetails;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;

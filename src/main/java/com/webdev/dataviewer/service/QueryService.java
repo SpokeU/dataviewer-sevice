@@ -3,7 +3,7 @@ package com.webdev.dataviewer.service;
 import com.webdev.dataviewer.Connection;
 import com.webdev.dataviewer.QueryResult;
 import com.webdev.dataviewer.exception.ResourceNotFoundException;
-import com.webdev.dataviewer.model.entity.QueryEntity;
+import com.webdev.dataviewer.entity.QueryEntity;
 import com.webdev.dataviewer.repository.QueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

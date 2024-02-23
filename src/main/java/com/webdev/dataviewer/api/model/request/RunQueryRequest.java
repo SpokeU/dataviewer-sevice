@@ -1,4 +1,4 @@
-package com.webdev.dataviewer.model.api;
+package com.webdev.dataviewer.api.model.request;
 
 import java.util.Map;
 

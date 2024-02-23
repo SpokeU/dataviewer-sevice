@@ -2,9 +2,9 @@ package com.webdev.dataviewer.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webdev.dataviewer.ConnectionProvider;
-import com.webdev.dataviewer.model.api.ConnectionApiModel;
-import com.webdev.dataviewer.model.connection.ConnectionDetails;
-import com.webdev.dataviewer.model.entity.ConnectionEntity;
+import com.webdev.dataviewer.api.model.ConnectionApiModel;
+import com.webdev.dataviewer.model.ConnectionDetails;
+import com.webdev.dataviewer.entity.ConnectionEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
